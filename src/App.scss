@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap');
+
+body {
+  background: #544b6e;
+}
+
+.App {
+  &__header {
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+    padding: 16px 32px;
+    color: white;
+  }
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+.team-builder {
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 90%;
+  align-items: center;
+  margin: 32px auto;
+  flex-wrap: wrap;
+}
+
+.total-cost {
+  text-align: center;
+  margin: 16px 32px;
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color: #0e95a1;
+  &--over-max {
+    color: #fbe17b;
+  }
+  &::before {
+    content: 'Total Cost of Team: ';
+    color: white;
+  }
+}
+
+.error {
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  color: #fbe17b;
+  text-align: center;
+  display: block;
+}
+
+.player-search {
+  margin: 8px;
+  &__label {
+    display: block;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+}
+
+.react-autosuggest {
+  &__container {
+    position: relative;
+    display: inline-block;
+  }
+
+  &__input {
+    width: 280px;
+    height: 50px;
+    padding: 10px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    border: 1px solid #3985ba;
+    color: #242424;
+    border-radius: 4px;
+    &--focused {
+      outline: none;
+    }
+    &--open  {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  &__suggestions-container{
+    display: none;
+    &--open {
+      display: block;
+      position: absolute;
+      top: 50px;
+      width: 280px;
+      border: 1px solid #3985ba;
+      background-color: #fff;
+      border-radius: 0 0 4px 4px;
+      z-index: 2;
+    }
+  }
+
+  &__suggestions-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  &__suggestion {
+    cursor: pointer;
+    padding: 10px 20px;
+    
+
+    .player-suggestion {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__name {
+        color: #242424;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+        font-size: 16px;
+      }
+      &__price {
+        color: #242424;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+        font-size: 12px;
+      }
+    }
+    &--highlighted {
+      background-color: #ddd;
+    }
+  }
+}
+
+.simple-input {
+  margin: 24px 8px 8px;
+  text-align: center;
+  display: block;
+  &__label {
+    display: block;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  &__input {
+    width: 380px;
+    max-width: 100%;
+    height: 50px;
+    padding: 10px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    border: 1px solid #3985ba;
+    color: #242424;
+    border-radius: 4px;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.player-card {
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 16px;
+  min-height: 360px;
+  width: 230px;
+  max-width: 100%;
+  margin: 8px 32px;
+  position: relative;
+  padding-top: 176px;
+  overflow: hidden;
+  text-align: center;
+  &__name {
+    margin: 0;
+    padding: 0;
+    color: #242424;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  &__cost {
+    margin: 0;
+    padding: 0;
+    color: #727272;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  &__height, &__weight, &__position, &__dominant-hand, &__nationality {
+    margin: 0;
+    padding: 0;
+    color: #727272;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    display: block;
+  }
+  &__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+button {
+  background: #3985ba;
+  padding: 8px 32px;
+  margin: 32px auto;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  display: block;
+  width: 360px;
+  max-width: 100%;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background: #0e95a1;
+    transition: 210ms ease-in-out;
+  }
+}
