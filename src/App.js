@@ -6,6 +6,7 @@ import './App.scss';
 class App extends Component {
   constructor() {
     super();
+    //Set up all state variables
     this.state = {
       teamName: "",
       username: "",
@@ -20,9 +21,14 @@ class App extends Component {
     };
   }
 
+  /**
+   * Once react module has been loaded
+   */
   componentDidMount = async () => {
+    //fetch player list in JSON format from "api"
     const response = await fetch('/playerList.json');
     const playerList = await response.json();
+    //update player list in state
     this.setState({ players: {
       lead: playerList[0].lead,
       skip: playerList[1].skip,
@@ -31,9 +37,16 @@ class App extends Component {
     } });
   }
 
+  /**
+   * Event Handler for when the player selected for a specific position changes
+   * @param {string} position The position of the player
+   * @param {Object} selected The basic info object of the selected player
+   */
   onSelectedChange = async (position, selected) => {
+    //Fetch the extra details for the player
     const extraDetail = await fetch(`/playerDetail/${selected.id}.json`);
     const extraDetailJSON = await extraDetail.json();
+    //update the team in state with the new player
     this.setState(prevState => {
       let newTeam = prevState.team;
       newTeam[position] = {
@@ -44,18 +57,29 @@ class App extends Component {
     })
   }
 
+  /**
+   * Adds up the cost for all selected players
+   */
   get totalCost() {;
+    //Default the total cost to 0
     let cost = 0;
+    //for each player in the team
     Object.values(this.state.team).forEach(player => {
+      //if the player has been selected then add their cost to the running total
       if(player != null) cost += player.basicInfo.price;
     });
+    //return the total cost
     return cost;
   }
 
+  //Handler for submitting the form (Stops the markup trying to submit to the current page on enter)
   submitHandler(e) {
     e.preventDefault();
   }
 
+  /**
+   * Returns the current issue with the submission. Returns false if no issues exist
+   */
   get currentIssue() {
     let numberOfPlayers = (Object.values(this.state.team).filter(player => player != null)).length;
     let emailRegEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -69,18 +93,24 @@ class App extends Component {
     else return false;
   }
 
+  /**
+   * Renders the react component
+   */
   render() {
+    //Start with no player cards
     let cards = [];
+    //Add a Trading Card component for every player
     Object.values(this.state.team).forEach(player => {
       if(player != null) cards.push((<TradingCard key={player.basicInfo.id} player={player} />));
     })
     
-    let errors = <span className='error'>{this.currentIssue}</span>;
+    //The current error as markup if there is one
+    let errors = this.currentIssue ? <span className='error'>{this.currentIssue}</span> : '';
 
     return (
       <div className="App">
         <header className="App__header">Fantasy Curling Team Builder</header>
-        {this.currentIssue && errors}
+        {errors}
         <form className="team-builder" onSubmit={this.submitHandler}>
           <PlayerSearch id='lead' onSelectedChange={this.onSelectedChange} players={this.state.players.lead}></PlayerSearch>
           <PlayerSearch id='skip' onSelectedChange={this.onSelectedChange} players={this.state.players.skip}></PlayerSearch>

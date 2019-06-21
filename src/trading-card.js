@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 
 class TradingCard extends Component {
+  /**
+   * Render the Trading Card using passed in properties
+   */
   render() {
     return (
       <article className="player-card">
